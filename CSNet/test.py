@@ -10,6 +10,8 @@ from configs import cfg
 from skimage import io
 from skimage.transform import resize
 from model.utils.simplesum_octconv import simplesum
+# from CSNet.model.utils.simplesum_octconv import simplesum
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='PyTorch SOD')
 
@@ -50,7 +52,7 @@ def main():
         print("=> loaded checkpoint '{}' (epoch {})".format(
             this_checkpoint, checkpoint['epoch']))
         test(model, cfg.TEST.DATASETS, loadepoch)
-        eval(cfg.TASK, loadepoch)
+        # eval(cfg.TASK, loadepoch)
     else:
         print(this_checkpoint, "Not found.")
 
@@ -62,15 +64,19 @@ def test(model, test_datasets, epoch):
         sal_save_dir = os.path.join(cfg.DATA.SAVEDIR, cfg.TASK,
                                     dataset + '_' + str(epoch))
         os.makedirs(sal_save_dir, exist_ok=True)
-        img_dir = os.path.join(cfg.TEST.DATASET_PATH, dataset, 'images')
+        img_dir = os.path.join(cfg.TEST.DATASET_PATH, 'DUTS-TE-Image')
         img_list = os.listdir(img_dir)
         count = 0
         mean = [0.485, 0.456, 0.406]
         std = [0.229, 0.224, 0.225]
         with torch.no_grad():
-            for img_name in img_list:
-                img = skimage.img_as_float(
-                    io.imread(os.path.join(img_dir, img_name)))
+            for _, img_name in enumerate(tqdm(img_list)):
+                if img_name == '.ipynb_checkpoints': continue
+                try:
+                    img = skimage.img_as_float(
+                        io.imread(os.path.join(img_dir, img_name)))
+                except ValueError as e:
+                    print('error file: {}'.format(os.path.join(img_dir, img_name)))
                 h, w = img.shape[:2]
                 if cfg.TEST.IMAGE_H != 0 and cfg.TEST.IMAGE_W != 0:
                     img = resize(img, (cfg.TEST.IMAGE_H, cfg.TEST.IMAGE_W),
