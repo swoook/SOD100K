@@ -7,7 +7,7 @@ MODEL:
   BASIC_SPLIT: [0.5,0.5]
 
 DATA:
-  DIR: "datasets/sal/DUTS-TR"
+  DIR: "/data/swook/dataset/duts/DUTS-TE"
   PRETRAIN: ''
   BATCH_SIZE: 24
   WORKERS: 8
@@ -16,16 +16,16 @@ DATA:
   RESUME: ""
 
 VAL:
-  DIR: "datasets/sal/ECSSD"
+  DIR: "/data/swook/dataset/duts/DUTS-TE"
 
 TEST:
-  DATASET_PATH: 'datasets/sal'
+  DATASET_PATH: "/data/swook/dataset/duts/DUTS-TE"
   # DATASETS: ['ECSSD','DUT-OMRON','DUTS-TE','PASCAL-S','HKU-IS','SOD']
-  DATASETS: ['HKU-IS_FULL']
+  DATASETS: ['DUTS-TE']
   INTERVAL: 5
   ENABLE: False
   IMAGE_H: 224
   IMAGE_W: 224
   TESTALL: False
-  CHECKPOINT:  "checkpoints/csnet-L-x1/csnet-L-x1.pth.tar"
-  MODEL_CONFIG: "checkpoints/csnet-L-x1/csnet-L-x1.bin"
+  CHECKPOINT:  "CSNet/checkpoints/csnet-L-x1/csnet-L-x1.pth.tar"
+  MODEL_CONFIG: "CSNet/checkpoints/csnet-L-x1/csnet-L-x1.bin"

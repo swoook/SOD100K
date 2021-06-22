@@ -26,5 +26,5 @@ TEST:
   IMAGE_H: 224
   IMAGE_W: 224
   TESTALL: False
-  CHECKPOINT:  "checkpoints/csnet-L-x2/csnet-L-x2.pth.tar"
-  MODEL_CONFIG: "checkpoints/csnet-L-x2/csnet-L-x2.bin"
+  CHECKPOINT:  "CSNet/checkpoints/csnet-L-x2/csnet-L-x2.pth.tar"
+  MODEL_CONFIG: "CSNet/checkpoints/csnet-L-x2/csnet-L-x2.bin"
