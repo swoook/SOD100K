@@ -97,9 +97,9 @@ class gOctaveConv(nn.Module):
 
                 if scale_factor > 1:
                     y = F.conv2d(x, this_weight, this_bias, 1, self.padding, self.dilation, self.groups)
-                    y = F.interpolate(y, size=this_output_shape, mode=up_kwargs['mode'])
+                    y = F.interpolate(y, size=this_output_shape, mode=up_kwargs['mode'], align_corners=False)
                 elif scale_factor < 1:
-                    x_resize = F.interpolate(x, size=this_output_shape, mode=up_kwargs['mode'])
+                    x_resize = F.interpolate(x, size=this_output_shape, mode=up_kwargs['mode'], align_corners=False)
                     y = F.conv2d(x_resize, this_weight, this_bias, 1, self.padding, self.dilation, self.groups)
                 else:
                     y = F.conv2d(x, this_weight, this_bias, 1, self.padding, self.dilation, self.groups)
